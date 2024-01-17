@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&family=Rubik:wght@700&display=swap");
+
+:root {
+  --constant-color-black: #262a2f;
+  --constant-color-black2: #1e2028;
+  --constant-color-black-alpha90: rgba(0, 0, 0, 0.9);
+  --constant-white-alpha64: rgba(255, 255, 255, 0.64);
+  --constant-color-white: #fff;
+  --constant-color-grey: #eaeaea;
+  --constant-color-grey2: #b5b5b5;
+  --constant-color-accent: #0083fc;
+  --background-color: var(--constant-color-white);
+  --foreground-color: var(--constant-color-black);
+  --popup-color: var(--constant-color-grey);
+  --skeleton-gradient: linear-gradient(to right, transparent 0%, var(--constant-white-alpha64) 100%);
+  --skeleton-block-color: var(--constant-color-grey2);
+}
+
+[scheme="dark"] {
+  --background-color: var(--constant-color-black);
+  --foreground-color: var(--constant-color-white);
+  --popup-color: var(--constant-color-black2);
+}
+
+*:not(svg *) {
+  all: unset;
+  display: revert;
+}
+
+body {
+  font-family: "Roboto Mono", sans-serif;
+  font-weight: 500;
+  color: var(--foreground-color);
+  background-color: var(--background-color);
+}
+
+a {
+  cursor: pointer;
+}
+
+.skeleton-gradient {
+  background-size: 200% 100%;
+  background-attachment: fixed;
+  background-image: var(--skeleton-gradient);
+  animation: skeleton-gradient-animation 0.7s linear infinite;
+}
+
+@keyframes skeleton-gradient-animation {
+  from {
+    background-position: 100% 0;
+  }
+
+  to {
+    background-position: -100%, 0;
+  }
+}

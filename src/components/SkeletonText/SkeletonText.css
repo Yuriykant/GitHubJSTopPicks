@@ -1,0 +1,22 @@
+.skeleton-text {
+  color: var(--skeleton-block-color);
+  width: 100%;
+}
+
+.skeleton-text--accent {
+  color: var(--constant-color-accent);
+  width: 70%;
+}
+
+.skeleton-text__row {
+  border-radius: 4px;
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+  height: 1em;
+  background-color: currentColor;
+}
+
+.skeleton-text__row:last-child:not(:first-child) {
+  width: 60%;
+}
