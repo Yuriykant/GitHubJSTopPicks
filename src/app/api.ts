@@ -1,7 +1,20 @@
-import { IRepository } from '@features/repositories/types';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-export const apiFetchPopularRepositories = (): Promise<IRepository[]> => {
-  return fetch('https://api.github.com/search/repositories?q=JavaScript&sort=stars&per_page=30')
-    .then((response) => response.json())
-    .then((json) => json.items);
-};
+export const apiSlice = createApi({
+  reducerPath: 'api',
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'https://api.github.com',
+  }),
+  endpoints: (builder) => ({
+    getRepo: builder.query({
+      query: ({ limit }) => ({
+        url: '/search/repositories?q=language:js&sort=stars',
+        params: {
+          _limit: limit,
+        },
+      }),
+    }),
+  }),
+});
+
+export const { useGetRepoQuery } = apiSlice;

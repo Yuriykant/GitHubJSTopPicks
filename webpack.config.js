@@ -1,21 +1,18 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const EslintWebpackPlugin = require('eslint-webpack-plugin');
-const StylelintWebpackPlugin = require('stylelint-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const HtmlInlineScriptPlugin = require('html-inline-script-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
+const StylelintPlugin = require('stylelint-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-const mode = process.env.MODE || 'production';
+const mode = process.env.NODE_ENV || 'production';
 
 module.exports = {
-  mode: mode,
-  entry: {
-    main: './src/app/index.tsx',
-    initColorScheme: './src/features/colorScheme/initColorScheme.ts',
-  },
+  mode: process.env.NODE_ENV || 'production',
+  entry: './src/app/script.tsx',
   output: {
-    path: path.resolve(__dirname, 'public'),
-    filename: '[name].[contenthash].js',
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.[contenthash].js',
+    publicPath: '/',
   },
   module: {
     rules: [
@@ -26,10 +23,10 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+        use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.(svg|jpg)$/,
+        test: /\.svg$/,
         type: 'asset/resource',
       },
       {
@@ -39,32 +36,29 @@ module.exports = {
       },
     ],
   },
+  optimization: {
+    runtimeChunk: mode === 'production' ? false : 'single',
+  },
   resolve: {
     extensions: ['.js', '.ts', '.tsx'],
     alias: {
-      '@components': path.resolve('./src/components'),
+      '@Components': path.resolve('./src/Components'),
+      '@features': path.resolve('./src/features'),
       '@app': path.resolve('./src/app'),
       '@images': path.resolve('./src/images'),
-      '@features': path.resolve('./src/features'),
     },
-  },
-  optimization: {
-    runtimeChunk: mode === 'production' ? false : 'single',
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/app/index.html',
     }),
-    new HtmlInlineScriptPlugin({
-      scriptMatchPattern: [/initColorScheme\..+\.js$/],
+    new CleanWebpackPlugin(),
+    new StylelintPlugin({
+      files: 'src/{**/*,*}.css',
     }),
-    new EslintWebpackPlugin({
-      files: '{**/*,*}.{tsx,ts,js}',
+    new ESLintPlugin({
+      files: 'src/{**/*,*}.{tsx,ts}',
     }),
-    new StylelintWebpackPlugin({
-      files: '{**/*,*}.css',
-    }),
-    new MiniCssExtractPlugin({ filename: 'bundle.[contenthash].css' }),
   ],
   devServer: {
     open: true,

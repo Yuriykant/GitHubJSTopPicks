@@ -1,12 +1,10 @@
-import { configureStore, PayloadAction, ThunkAction } from '@reduxjs/toolkit';
-import repositories from '@features/repositories/slice';
+import { configureStore } from '@reduxjs/toolkit';
+import { apiSlice } from './api';
 
 export const store = configureStore({
   reducer: {
-    repositories: repositories,
+    [apiSlice.reducerPath]: apiSlice.reducer,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware),
+  devTools: process.env.NODE_ENV !== 'production',
 });
-
-export type RootState = ReturnType<typeof store.getState>;
-export type Dispatch = typeof store.dispatch;
-export type AppAction<R> = ThunkAction<R, RootState, unknown, PayloadAction>;

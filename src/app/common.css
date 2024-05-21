@@ -1,25 +1,34 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&family=Rubik:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Rubik:wght@700&display=swap");
 
 :root {
   --constant-color-black: #262a2f;
-  --constant-color-black2: #1e2028;
-  --constant-color-black-alpha90: rgba(0, 0, 0, 0.9);
-  --constant-white-alpha64: rgba(255, 255, 255, 0.64);
+  --constant-color-black-slider: #1e2028;
+  --constant-color-uitra-black: rgba(0, 0, 0, 0.9);
   --constant-color-white: #fff;
-  --constant-color-grey: #eaeaea;
-  --constant-color-grey2: #b5b5b5;
+  --constant-white-alpha64: rgba(255, 255, 255, 0.64);
   --constant-color-accent: #0083fc;
+  --constant-color-grey: #b5b5b5;
+  --constant-color-grey-bg: #eaeaea;
+  --constant-color-ultra-grey: rgba(83, 83, 83, 0.9);
+  --container-width: 940px;
+  --font-rubik: "Rubik", sans-serif;
+  --font-mono: "Roboto Mono", sans-serif;
   --background-color: var(--constant-color-white);
-  --foreground-color: var(--constant-color-black);
-  --popup-color: var(--constant-color-grey);
-  --skeleton-gradient: linear-gradient(to right, transparent 0%, var(--constant-white-alpha64) 100%);
-  --skeleton-block-color: var(--constant-color-grey2);
+  --slider-color: var(--constant-color-grey-bg);
+  --popup-bg-color: var(--constant-color-grey-bg);
+  --text-color: var(--constant-color-black);
+  --skeleton-gradient: linear-gradient(to right, transparent 0%, var(--constant-color-grey) 100%);
+  --skeleton-gradient-accent: linear-gradient(to right, transparent 0%, var(--constant-color-accent) 100%);
+  --skeleton-block-color: var(--skeleton-gradient);
 }
 
-[scheme="dark"] {
-  --background-color: var(--constant-color-black);
-  --foreground-color: var(--constant-color-white);
-  --popup-color: var(--constant-color-black2);
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: var(--constant-color-black);
+    --slider-color: var(--constant-color-black-slider);
+    --popup-bg-color: var(--constant-color-uitra-black);
+    --text-color: var(--constant-color-white);
+  }
 }
 
 *:not(svg *) {
@@ -28,14 +37,19 @@
 }
 
 body {
-  font-family: "Roboto Mono", sans-serif;
-  font-weight: 500;
-  color: var(--foreground-color);
+  font-family: var(--font-rubik);
+  font-weight: 700;
+  color: var(--text-color);
   background-color: var(--background-color);
 }
 
 a {
   cursor: pointer;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: var(--container-width);
 }
 
 .skeleton-gradient {
@@ -45,12 +59,31 @@ a {
   animation: skeleton-gradient-animation 0.7s linear infinite;
 }
 
+.skeleton-gradient-accent {
+  background-image: var(--skeleton-gradient-accent);
+  animation: skeleton-gradient-animation 0.7s linear infinite;
+}
+
 @keyframes skeleton-gradient-animation {
   from {
     background-position: 100% 0;
   }
 
   to {
-    background-position: -100%, 0;
+    background-position: -100% 0;
+  }
+}
+
+@media (max-width: 1024px) {
+  .container {
+    margin: 0 auto;
+    max-width: 767px;
+  }
+}
+
+@media (max-width: 767px) {
+  .container {
+    margin: 0 auto;
+    min-width: 320px;
   }
 }
