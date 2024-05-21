@@ -3,32 +3,15 @@
     "strict": true,
     "esModuleInterop": true,
     "jsx": "react",
-    "lib": [
-      "dom.iterable",
-      "es2020",
-      "dom"
-    ],
+    "lib": ["dom.iterable", "es2020", "dom"],
     "baseUrl": "src",
     "paths": {
-      "@Components/*": [
-        "Components/*"
-      ],
-      "@features/*": [
-        "features/*"
-      ],
-      "@app/*": [
-        "app/*"
-      ],
-      "@images/*": [
-        "images/*"
-      ]
+      "@Components/*": ["Components/*"],
+      "@features/*": ["features/*"],
+      "@app/*": ["app/*"],
+      "@images/*": ["images/*"]
     }
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "node_modules",
-    "public"
-  ]
+  "include": ["src"],
+  "exclude": ["node_modules", "public"]
 }
